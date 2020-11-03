@@ -1,3 +1,7 @@
 {
-    
+    "msg_id": 0,
+    "prefix": "[Report]",
+    "prefix_color": "white",
+    "content": "Testing...",
+    "content_color": "white"
 }
