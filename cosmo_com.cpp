@@ -11,7 +11,6 @@
 #include "nlohmann/json.hpp"
 
 // #define __DEBUG__ 1
-
 typedef nlohmann::json config;
 std::string CONFIG_FILE_NAME = "system.cfg";
 const int NO_ERROR_OCCUR = 0;
