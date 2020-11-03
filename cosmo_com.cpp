@@ -29,6 +29,25 @@ typedef struct {
     std::string strContent;
     int iContentColor;
 } MessageObj;
+std::wstring convert(const std::string& input)
+{
+    try
+    {
+        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+        return converter.from_bytes(input);
+    }
+    catch(std::range_error& e)
+    {
+        size_t length = input.length();
+        std::wstring result;
+        result.reserve(length);
+        for(size_t i = 0; i < length; i++)
+        {
+            result.push_back(input[i] & 0xFF);
+        }
+        return result;
+    }
+}
 // Return color code by text modifier. 根据文字修饰返回颜色代码。
 int getColorCode(std::string strColor)
 {
@@ -58,8 +77,8 @@ int main(int argc, char** argv)
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     std::ios_base::sync_with_stdio(false);
-    std::locale loc("C.UTF-8");
-    std::wcout.imbue(loc);
+    const std::locale utf8( std::locale(), new std::codecvt_utf8<wchar_t> );
+    std::wcout.imbue(utf8);
     /* Initialization. 初始化过程 */
     // Change default text code. 更改默认文字编码.
     
@@ -81,13 +100,12 @@ int main(int argc, char** argv)
         msgProtocals[i].iContentColor = getColorCode(cfgOperator["msgs"][i]["content_color"]);
     }
     // Communicate Process. // 通讯过程
-    std::wcout << L"测试中文输出" << std::endl;
     for (int i = 0; i < iMaxMsgLength; i++)
     {
         SetConsoleTextAttribute(hConsole, msgProtocals[i].iPrefixColor);
-        // std::wcout << msgProtocals[i].strPrefix << " ";
+        std::cout << msgProtocals[i].strPrefix << " ";
         SetConsoleTextAttribute(hConsole, msgProtocals[i].iContentColor);
-        // std::wcout << msgProtocals[i].strContent << std::endl;
+        std::cout << msgProtocals[i].strContent << std::endl;
     }
     SetConsoleTextAttribute(hConsole, COLOR_WHITE);
     return NO_ERROR_OCCUR;
