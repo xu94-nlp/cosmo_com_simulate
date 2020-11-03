@@ -8,6 +8,7 @@
 			"args": [
 				"-g",
 				"${file}",
+				"-I/nlohmann",
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe"
 			],

@@ -9,4 +9,10 @@ We forbide **any usage**, including but not limited to research, and study , wit
 Console Color Code
 | value| color |
 |:----:|:----: |
-| 1     |     5|
+|  2   |dark green|
+|  8   | gray  |
+|  10  |grass green |
+|  11  |sky blue|
+|  12  |blood red|
+|  14  |yellow |
+|  15  |white  |
